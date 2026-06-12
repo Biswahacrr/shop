@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BISWAJIT RABHA | PREMIUM PORTAL</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        /* --- SYSTEM DESIGN SYSTEM CONFIG --- */
+        :root {
+            --primary-purple: #7c3aed;
+            --primary-glow: #a855f7;
+            --border-purple: rgba(168, 85, 247, 0.4);
+            --text-main: #f3f4f6;
+            --cyber-cyan: #00f5ff;
+            --gemini-bg: #131314;
+            --gemini-surface: #1e1f20;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            background-color: transparent; /* FIXED: transparent किया ताकि पीछे का वीडियो दिखे */
+            color: var(--text-main);
+        }
+
+        /* ─── FIXED VIDEO BACKGROUND ENGINE (ULTIMATE FIX) ─── */
+        .video-background-mainframe {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -10;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .video-background-mainframe video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Dark Atmospheric Glass Mask Overlay */
+        .video-overlay-mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -9;
+            background: rgba(6, 4, 12, 0.65);
+            backdrop-filter: blur(1px);
+            pointer-events: none;
+        }
+
+        /* --- SCREENSHOT NAVIGATION BAR --- */
+        .screenshot-navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand-logo-cluster {
+            font-weight: 900;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+            color: #fff;
+        }
+        .brand-logo-cluster span {
+            color: var(--primary-glow);
+        }
+
+        .navbar-links-center {
+            display: flex;
+            list-style: none;
+            gap: 1.2rem;
+        }
+        .navbar-links-center a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .navbar-links-center a:hover, .navbar-links-center a.active {
+            color: #fff;
+            text-shadow: 0 0 8px var(--primary-glow);
+        }
+
+        .btn-pill-signup {
+            background: var(--primary-purple);
+            color: #fff;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--primary-purple);
+        }
+
+        /* --- HERO SCREENSHOT LAYOUT SECTION --- */
+        .hero-viewport-arena {
+            min-height: calc(100vh - 70px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem 1rem;
+            z-index: 1;
+        }
+
+        .top-sub-tagline {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #fff;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--primary-glow);
+            padding-bottom: 4px;
+        }
+
+        .screenshot-main-title {
+            font-size: 5rem;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: -0.5rem;
+        }
+
+        .screenshot-giant-number {
+            font-size: 7.5rem;
+            font-weight: 900;
+            color: var(--primary-purple);
+            line-height: 0.9;
+            letter-spacing: -2px;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 35px rgba(124, 58, 237, 0.8);
+        }
+
+        .badge-inline-container {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .badge-node-item {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #a78bfa;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .badge-node-item::before {
+            content: '●';
+            color: var(--primary-glow);
+        }
+
+        .hero-description-block {
+            max-width: 500px;
+            font-size: 0.85rem;
+            color: #d1d5db;
+            line-height: 1.5;
+            margin-bottom: 2rem;
+        }
+
+        .cta-btn-deck {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-marketplace-primary {
+            background: var(--primary-purple);
+            color: #fff;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.6);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-marketplace-primary:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 25px rgba(124, 58, 237, 0.9);
+        }
+
+        .btn-gemini-ai-launcher {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: transform 0.2s;
+        }
+        .btn-gemini-ai-launcher:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 25px rgba(59, 130, 246, 0.7);
+        }
+
+        .social-vector-grid {
+            display: flex;
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .social-link-icon-node {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: bold;
+            transition: all 0.2s;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .social-link-icon-node:hover {
+            color: #fff;
+            background: rgba(124, 58, 237, 0.3);
+            border-color: var(--primary-glow);
+            transform: translateY(-2px);
+        }
+
+        /* --- PERMANENT GLASS DISCLAIMER FOOTPRINT --- */
+        .system-disclaimer-card {
+            max-width: 540px;
+            width: 90%;
+            background: rgba(10, 6, 18, 0.75);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            padding: 1.2rem;
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 15px rgba(124, 58, 237, 0.15);
+        }
+        .disclaimer-lbl {
+            color: #a855f7;
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            display: block;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 8px rgba(168, 85, 247, 0.5);
+        }
+        .disclaimer-text {
+            font-size: 0.8rem;
+            color: #d1d5db;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* --- PERMANENT SIDE LIVE VISITOR WIDGET --- */
+        .floating-visitor-panel {
+            position: fixed;
+            right: 20px;
+            top: 45%;
+            transform: translateY(-50%);
+            background: rgba(10, 6, 18, 0.85);
+            border: 1px solid var(--border-purple);
+            border-radius: 10px;
+            padding: 0.8rem 1.2rem;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(124, 58, 237, 0.4);
+            z-index: 10;
+            backdrop-filter: blur(10px);
+        }
+        .visitor-widget-lbl {
+            font-size: 0.65rem;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
+        }
+        .visitor-widget-count {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--cyber-cyan);
+            text-shadow: 0 0 8px var(--cyber-cyan);
+        }
+
+        /* --- FLOATING AUDIO SYSTEM --- */
+        .audio-capsule-widget {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            z-index: 10;
+        }
+        .audio-ctrl-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #fff;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        /* --- GLASSMORPHISM POPUP WINDOWS --- */
+        .system-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+        }
+        .modal-window-frame {
+            background: rgba(17, 12, 28, 0.95);
+            border: 1px solid var(--border-purple);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.8), 0 0 25px var(--border-purple);
+            border-radius: 14px;
+            width: 100%;
+            max-width: 780px;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+        }
+        .modal-header-deck {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .btn-modal-close {
+            background: transparent;
+            border: none;
+            color: #9ca3af;
+            font-size: 1.6rem;
+            cursor: pointer;
+        }
+        .modal-navigation-tabs { display: flex; background: rgba(0, 0, 0, 0.3); }
+        .tab-nav-button {
+            flex: 1; padding: 0.9rem; background: transparent; border: none;
+            color: #9ca3af; font-weight: 700; text-transform: uppercase; font-size: 0.75rem;
+            cursor: pointer; border-bottom: 2px solid transparent;
+        }
+        .tab-nav-button.active { color: #fff; background: rgba(168, 85, 247, 0.1); border-bottom-color: var(--primary-glow); }
+        .modal-content-body { padding: 1.5rem; overflow-y: auto; flex: 1; }
+        .modal-tab-panel { display: none; }
+        .modal-tab-panel.active { display: block; }
+
+        /* --- DYNAMIC AUTOMATIC ROUTINE COMPONENT --- */
+        .live-date-header-row { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.4); padding: 1rem; border-radius: 8px; margin-bottom: 1rem; }
+        .pulse-dot { width: 10px; height: 10px; background: #22c55e; border-radius: 50%; display: inline-block; animation: pulse 1.4s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+        .btn-full-routine-link { display: block; text-align: center; background: rgba(124, 58, 237, 0.15); color: #fff; text-decoration: none; padding: 0.8rem; border-radius: 6px; font-weight: 700; margin-bottom: 1rem; border: 1px solid var(--border-purple); }
+        .timetable-slots-wrapper { display: flex; flex-direction: column; gap: 0.6rem; }
+        .slot-pill-node { background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.05); padding: 0.6rem 1rem; border-radius: 6px; display: flex; justify-content: space-between; font-size: 0.85rem; }
+        
+        /* ─── NEW HIGH-TIER CYBERPUNK ID CARD DESIGN ─── */
+        .premium-atx-id-card {
+            width: 100%; max-width: 440px; height: 260px; 
+            background: linear-gradient(135deg, #0f0c1b 0%, #05020a 100%);
+            border-radius: 20px; border: 2px solid #a855f7; padding: 1.5rem;
+            margin: 0 auto 1.5rem auto; position: relative; display: flex; flex-direction: column; justify-content: space-between;
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.4), inset 0 0 15px rgba(168, 85, 247, 0.2);
+            overflow: hidden;
+        }
+        .id-card-glow-line {
+            position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, #7c3aed, #00f5ff, #a855f7);
+        }
+        .id-top-deck { display: flex; justify-content: space-between; align-items: flex-start; }
+        .id-photo-frame { width: 90px; height: 110px; border: 2px solid var(--cyber-cyan); border-radius: 10px; overflow: hidden; background: #111; box-shadow: 0 0 10px rgba(0, 245, 255, 0.3); }
+        .id-photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+        .id-gold-microchip { width: 45px; height: 35px; background: linear-gradient(135deg, #ffd700 0%, #d4af37 50%, #aa7c11 100%); border-radius: 6px; box-shadow: 0 0 8px rgba(212, 175, 55, 0.4); }
+        .id-account-serial { font-family: 'Courier New', monospace; font-size: 1.3rem; font-weight: 900; letter-spacing: 2px; color: var(--cyber-cyan); text-shadow: 0 0 5px rgba(0, 245, 255, 0.5); margin-top: 0.5rem; }
+        .id-bottom-deck { display: flex; justify-content: space-between; align-items: flex-end; }
+        .id-field-lbl { font-size: 0.55rem; color: #a78bfa; text-transform: uppercase; letter-spacing: 0.5px; }
+        .id-field-val { font-size: 0.95rem; font-weight: 800; color: #fff; margin-top: 2px; }
+
+        /* ─── REAL WORKING AUTHENTIC GEMINI LOOK AI BOT ─── */
+        .gemini-chat-mainframe {
+            display: flex; height: 460px; background: var(--gemini-bg); border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08); overflow: hidden;
+        }
+        .gemini-sidebar-commands {
+            width: 220px; background: var(--gemini-surface); border-right: 1px solid rgba(255,255,255,0.05);
+            display: flex; flex-direction: column; padding: 0.8rem;
+        }
+        .gemini-sidebar-title { font-size: 0.7rem; font-weight: 700; color: #9ca3af; text-transform: uppercase; margin-bottom: 0.5rem; letter-spacing: 0.5px; }
+        .commands-scroller-node { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 0.3rem; padding-right: 4px; }
+        .command-badge-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 0.4rem; border-radius: 6px; font-size: 0.72rem; color: #c4c7c5; cursor: pointer; transition: background 0.2s; text-align: left;}
+        .command-badge-item:hover { background: rgba(255,255,255,0.08); color: #fff; }
+        .gemini-chat-chatbox { flex: 1; display: flex; flex-direction: column; background: var(--gemini-bg); }
+        .gemini-chat-logs { flex: 1; overflow-y: auto; padding: 1.2rem; display: flex; flex-direction: column; gap: 1.2rem; }
+        .gemini-bubble { max-width: 85%; font-size: 0.88rem; line-height: 1.6; color: #e3e3e3; }
+        .gemini-bubble.user-side { background: #303132; padding: 0.6rem 1rem; border-radius: 18px; align-self: flex-end; max-width: 70%; }
+        .gemini-bubble.ai-side { align-self: flex-start; display: flex; gap: 0.8rem; }
+        .gemini-avatar { width: 28px; height: 28px; background: linear-gradient(135deg, #7a97ff, #b372ff); border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: bold; color: #fff; }
+        .gemini-chat-input-bar { display: flex; padding: 1rem; background: var(--gemini-bg); gap: 0.6rem; align-items: center; }
+        .gemini-text-field { flex: 1; background: var(--gemini-surface); border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; padding: 0.75rem 1.2rem; color: #fff; outline: none; font-size: 0.85rem; }
+        .gemini-text-field:focus { border-color: #a855f7; }
+        .btn-gemini-send { background: #3b82f6; color: #fff; border: none; padding: 0.7rem 1.4rem; border-radius: 24px; cursor: pointer; font-weight: 700; font-size: 0.8rem; }
+
+        /* ─── STUDENT MULTI-UTILITY SUITE FEATURES ─── */
+        .utility-box-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+        .utility-card-module { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 10px; padding: 1rem; backdrop-filter: blur(5px); }
+        .utility-card-title { font-size: 0.8rem; font-weight: 700; color: var(--cyber-cyan); margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .utility-input-row { display: flex; gap: 0.4rem; margin-bottom: 0.6rem; }
+        .utility-text-input { flex: 1; background: #000; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; padding: 0.4rem; color: #fff; font-size: 0.8rem; outline: none; }
+        .btn-utility-action { background: var(--primary-purple); color: #fff; border: none; padding: 0.4rem 0.8rem; border-radius: 4px; font-weight: 700; font-size: 0.75rem; cursor: pointer; }
+        .utility-output-list { max-height: 100px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.75rem; }
+        .utility-item-node { background: rgba(255,255,255,0.03); padding: 0.4rem; border-radius: 4px; display: flex; justify-content: space-between; }
+        .coming-soon-lbl { text-align: center; color: #9ca3af; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1.5px; padding: 0.5rem; border: 1px dashed rgba(255,255,255,0.1); border-radius: 6px; margin-top: 1rem; background: rgba(0,0,0,0.2); animation: pulse 2s infinite;}
+
+        @media(max-width: 768px) {
+            .navbar-links-center { display: none; }
+            .screenshot-main-title { font-size: 3rem; }
+            .screenshot-giant-number { font-size: 4.5rem; }
+            .utility-box-row { grid-template-columns: 1fr; }
+            .gemini-chat-mainframe { flex-direction: column; height: 500px; }
+            .gemini-sidebar-commands { width: 100%; height: 130px; }
+            .floating-visitor-panel { position: static; transform: none; margin: 1rem auto; width: fit-content; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="video-background-mainframe">
+        <video src="video.mp4" autoplay loop muted playsinline id="portalVideoBackground"></video>
+    </div>
+
+    <div class="video-overlay-mask"></div>
+
+    <nav class="screenshot-navbar">
+        <div class="brand-logo-cluster">
+            BISWAJIT <span>RABHA</span>
+        </div>
+        <ul class="navbar-links-center">
+            <li><a class="active" onclick="modalEngine.closeAll()">Home</a></li>
+            <li><a onclick="modalEngine.open('coreDashboard', 0)">Live Routine</a></li>
+            <li><a onclick="modalEngine.open('coreDashboard', 1)">ID Matrix</a></li>
+            <li><a onclick="modalEngine.open('studentUtilityDashboard')">Student Suite</a></li>
+            <li><a onclick="modalEngine.open('aiBotDashboard')">Gemini AI Bot</a></li>
+        </ul>
+        <button class="btn-pill-signup">UPCOMING FULL AI FEATURE</button>
+    </nav>
+
+    <main class="hero-viewport-arena">
+        <div class="top-sub-tagline">Continuous Loop System Core • Active Server Protocol</div>
+        
+        <h1 class="screenshot-main-title">BISWAJIT RABHA</h1>
+        <div class="screenshot-giant-number">WEBSITE</div>
+
+        <div class="badge-inline-container">
+            <div class="badge-node-item">Exclusive System</div>
+            <div class="badge-node-item">Undetected Hub</div>
+            <div class="badge-node-item">Live Sync</div>
+        </div>
+
+        <p class="hero-description-block">
+            Hi, I'm Biswajit 👋<br>
+            I am a student and a passionate developer. This is one of the biggest projects I have worked on so far. Although it is still under development, I am continuously improving it and adding new features.<br>
+            My goal is to create something innovative, useful, and impactful for users. This project is not just a website for me—it is a journey of learning, creativity, and growth as a developer.<br>
+            There is still a lot more to build, and I am working hard to bring my ideas to life. I hope to complete this project soon and make it even better with time.<br>
+            Thank you for visiting and supporting my work. 🚀<br>
+            — Biswajit | Student & Developer .
+        </p>
+
+        <div class="cta-btn-deck">
+            <button class="btn-marketplace-primary" onclick="modalEngine.open('coreDashboard', 0)">
+                Live College Routine 
+            </button>
+            <button class="btn-gemini-ai-launcher" onclick="modalEngine.open('aiBotDashboard')">
+                ✨ Open Biswa AI
+            </button>
+        </div>
+
+        <div class="social-vector-grid">
+            <a href="https://www.instagram.com/rabha_bisswajit" target="_blank" class="social-link-icon-node">@rabha_bisswajit</a>
+            <a href="https://www.instagram.com/biswajit_jur" target="_blank" class="social-link-icon-node">@biswajit_jur</a>
+        </div>
+
+        <div class="system-disclaimer-card">
+            <span class="disclaimer-lbl">Disclaimer</span>
+            <p class="disclaimer-text">
+                This website is completely safe and secure, and it has absolutely no connection to any illegal or malicious activity. This platform is single-handedly owned and managed by <b>Biswajit Rabha</b>. Currently, this website is incomplete (<b>Under Development</b>). I am working on this project alone and will fully complete it very soon. This is strictly my personal coding project; please do not misunderstand it.
+            </p>
+        </div>
+    </main>
+
+    <div class="floating-visitor-panel">
+        <div class="visitor-widget-lbl">Live Visitors</div>
+        <div class="visitor-widget-count" id="visitorLiveField">1k</div>
+    </div>
+
+    <div class="audio-capsule-widget">
+        <button class="audio-ctrl-btn" id="audioStateBtn" onclick="bgAudioEngine.toggleState()">▶</button>
+        <input type="range" style="accent-color:var(--primary-purple); width:60px; cursor:pointer;" min="0" max="1" step="0.05" value="0.5" oninput="bgAudioEngine.adjustVolume(this.value)">
+        <audio id="bgMusicTrack" src="music.mp3" loop></audio>
+    </div>
+
+
+    <div class="system-modal-overlay" id="coreDashboard" onclick="modalEngine.handleBackgroundOverlayClick(event)">
+        <div class="modal-window-frame">
+            <div class="modal-header-deck">
+                <h3 class="modal-header-title">SYSTEM DATA RESOURCE</h3>
+                <button class="btn-modal-close" onclick="modalEngine.close('coreDashboard')">×</button>
+            </div>
+            <div class="modal-navigation-tabs">
+                <button class="tab-nav-button active" onclick="modalEngine.switchTab(event, 'liveRoutinePanel')">Today Class Schedule</button>
+                <button class="tab-nav-button" onclick="modalEngine.switchTab(event, 'identityCardPanel')">Professional ID Card</button>
+            </div>
+            <div class="modal-content-body">
+                
+                <div class="modal-tab-panel active" id="liveRoutinePanel">
+                    <div class="live-date-header-row">
+                        <div>
+                            <span style="font-size:0.65rem; color:#9ca3af; text-transform:uppercase;">Calibrated System Clock</span>
+                            <div id="calendarNodeDate" style="font-size:1.1rem; font-weight:800;">00-00-2026</div>
+                        </div>
+                        <span id="routinePulseStatusField" style="color:#22c55e; font-weight:700;"><span class="pulse-dot"></span> Live Automated</span>
+                    </div>
+                    <a href="https://hackerbhai7099517202-del.github.io/college-routine-j.n-memorial-Higher-Secondary/" target="_blank" class="btn-full-routine-link">View Main Database Link</a>
+                    <div class="timetable-slots-wrapper" id="dynamicTimetableEngineOutput">
+                        </div>
+                </div>
+
+                <div class="modal-tab-panel" id="identityCardPanel">
+                    <div class="premium-atx-id-card" id="exportableCardObject">
+                        <div class="id-card-glow-line"></div>
+                        <div class="id-top-deck">
+                            <div class="id-photo-frame">
+                                <img src="developer.jpg" alt="Photo" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\' fill=\'%237c3aed\'><circle cx=\'50\' cy=\'35\' r=\'20\'/><path d=\'M10,85 C10,60 90,60 90,85 Z\'/></svg>';">
+                            </div>
+                            <div class="id-gold-microchip"></div>
+                        </div>
+                        <div class="id-account-serial">9994 8592 7099 5172</div>
+                        <div class="id-bottom-deck">
+                            <div class="id-data-field">
+                                <span class="id-field-lbl">Dev identity</span>
+                                <div class="id-field-val">Biswajit Rabha</div>
+                            </div>
+                            <div class="id-data-field">
+                                <span class="id-field-lbl">Class Level</span>
+                                <div class="id-field-val">Class XII (2nd Year)</div>
+                            </div>
+                            <div class="id-data-field">
+                                <span class="id-field-lbl">ID CARD</span>
+                                <div style="font-size:0.85rem; font-weight:900; color:var(--cyber-cyan); margin-top:2px;">DEVELOPER CARD</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="text-align:center;">
+                        <button class="btn-utility-action" style="padding:0.6rem 2rem;" onclick="idCardExporter.executeDownload()">Save Premium ID Image</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="system-modal-overlay" id="aiBotDashboard" onclick="modalEngine.handleBackgroundOverlayClick(event)">
+        <div class="modal-window-frame" style="max-width: 820px;">
+            <div class="modal-header-deck" style="background: var(--gemini-surface);">
+                <h3 style="color:#fff; font-size:1rem; display:flex; align-items:center; gap:0.5rem;"><span style="color:#7a97ff">✦</span>Biswa AI UPCOMING</h3>
+                <button class="btn-modal-close" onclick="modalEngine.close('aiBotDashboard')">×</button>
+            </div>
+            
+            <div class="gemini-chat-mainframe">
+                <div class="gemini-sidebar-commands">
+                    <div class="gemini-sidebar-title">All Supported Commands</div>
+                    <div class="commands-scroller-node" id="commandsMapAnchorList">
+                        </div>
+                </div>
+
+                <div class="gemini-chat-chatbox">
+                    <div class="gemini-chat-logs" id="geminiLogsContainer">
+                        <div class="gemini-bubble ai-side">
+                            <div class="gemini-avatar">✦</div>
+                            <div>Hello! I am Gemini Biswa AI Assistant. You can click any command on the sidebar menu or ask me anything directly!</div>
+                        </div>
+                    </div>
+                    <div class="gemini-chat-input-bar">
+                        <input type="text" class="gemini-text-field" id="geminiTextInField" placeholder="Type a command or ask a question..." onkeydown="if(event.key === 'Enter') geminiEngine.processUserSubmit()">
+                        <button class="btn-gemini-send" onclick="geminiEngine.processUserSubmit()">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="system-modal-overlay" id="studentUtilityDashboard" onclick="modalEngine.handleBackgroundOverlayClick(event)">
+        <div class="modal-window-frame">
+            <div class="modal-header-deck">
+                <h3>ACADEMIC ADVANCED SUITE (5 POWER USER MODULES)</h3>
+                <button class="btn-modal-close" onclick="modalEngine.close('studentUtilityDashboard')">×</button>
+            </div>
+            <div class="modal-content-body">
+                <div class="utility-box-row">
+                    <div class="utility-card-module">
+                        <div class="utility-card-title">1. AI Notes Snippet Summarizer</div>
+                        <div class="utility-input-row">
+                            <input type="text" class="utility-text-input" id="noteInput" placeholder="Paste complex sentences...">
+                            <button class="btn-utility-action" onclick="studentPack.parseNotes()">Simplify</button>
+                        </div>
+                        <div id="noteOutputBox" style="font-size:0.75rem; color:#ccc;">Output buffer clear. Ready to process.</div>
+                    </div>
+                    <div class="utility-card-module">
+                        <div class="utility-card-title">2. CGPA Grade Pointer Tool</div>
+                        <div class="utility-input-row">
+                            <input type="number" class="utility-text-input" id="sgpaInput" placeholder="Enter SGPA Point" step="0.01">
+                            <button class="btn-utility-action" onclick="studentPack.calculatePointers()">Store</button>
+                        </div>
+                        <div style="font-size:0.75rem;">Cumulative Average Score: <b id="cgpaMetric" style="color:var(--cyber-cyan);">0.00</b></div>
+                    </div>
+                </div>
+
+                <div class="utility-box-row">
+                    <div class="utility-card-module">
+                        <div class="utility-card-title">3. Study Pomodoro Focus Timer</div>
+                        <div style="display:flex; align-items:center; justify-content:space-between; background:rgba(0,0,0,0.3); padding:0.4rem; border-radius:4px;">
+                            <span id="pomoDisplayClock" style="font-size:1.1rem; font-weight:bold; font-family:monospace; color:var(--cyber-cyan);">25:00</span>
+                            <button class="btn-utility-action" style="padding:0.2rem 0.6rem; font-size:0.7rem;" id="pomoBtnNode" onclick="studentPack.togglePomodoro()">Start Session</button>
+                        </div>
+                    </div>
+                    <div class="utility-card-module">
+                        <div class="utility-card-title">4. Quick Subject Code Lookup</div>
+                        <div class="utility-input-row">
+                            <input type="text" class="utility-text-input" id="subjectSearchField" placeholder="Type e.g., MASS, ECON, ADAS" oninput="studentPack.lookupSubject(this.value)">
+                        </div>
+                        <div id="subjectSearchOutput" style="font-size:0.75rem; color:#a78bfa; font-weight:bold;">Enter code for mapping details...</div>
+                    </div>
+                </div>
+
+                <div class="utility-card-module">
+                    <div class="utility-card-title">5. College Assignment Tracker Deck</div>
+                    <div class="utility-input-row">
+                        <input type="text" class="utility-text-input" id="taskDesc" placeholder="Task description name...">
+                        <input type="date" class="utility-text-input" id="taskDate" style="max-width:130px;">
+                        <button class="btn-utility-action" onclick="studentPack.addAssignmentTrackerNode()">Log Task</button>
+                    </div>
+                    <div class="utility-output-list" id="assignmentListNodeWrapper"></div>
+                </div>
+
+                <div class="coming-soon-lbl">More Student Features Coming Soon...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const DICTIONARY_COMMANDS_MATRIX = {
+            "hi bot": "Namaste! Main aapki seva ke liye tayyar hoon.",
+            "welcome": "Dhanyavaad! Aapka swagat hai.",
+            "nice to meet you": "Mujhe bhi aapse milkar khushi hui.",
+            "are you real": "Main ek AI chatbot hoon, insaan nahi.",
+            "do you know me": "Main sirf wahi jaanta hoon jo aap mujhe batate hain.",
+            "what is ai": "AI ka matlab Artificial Intelligence hai, jo machines ko sochne aur seekhne ki kshamata deta hai.",
+            "what is internet": "Internet duniya bhar ke computers ka network hai.",
+            "what is coding": "Coding computer ko instructions dene ki prakriya hai.",
+            "what is html": "HTML web pages banane ki standard language hai.",
+            "what is css": "CSS website ko sundar aur stylish banata hai.",
+            "what is javascript": "JavaScript website mein interactivity add karta hai.",
+            "study tips": "Rozana revision karein aur time table follow karein.",
+            "exam tips": "Important topics par focus karein aur mock tests lagayein.",
+            "how to focus": "Mobile distractions kam karein aur short study sessions rakhein.",
+            "motivation for study": "Aaj ki mehnat kal ki safalta ban sakti hai.",
+            "tell me about computer": "Computer ek electronic device hai jo data process karta hai.",
+            "tell me about laptop": "Laptop ek portable computer hai.",
+            "tell me about smartphone": "Smartphone ek advanced mobile device hai.",
+            "latest technology": "AI, Robotics aur Quantum Computing aaj ki trending technologies hain.",
+            "sing a song": "Main gaana nahi gaa sakta, lekin gaane suggest kar sakta hoon.",
+            "tell me something interesting": "Octopus ke teen hearts hote hain. 🐙",
+            "surprise me": "Kya aap jaante hain ki shahad kabhi kharab nahi hota?",
+            "random fact": "Duniya ka sabse bada desert Antarctica hai.",
+            "home": "Aap home page par hain.",
+            "services": "Hum AI assistance aur technical guidance pradan karte hain.",
+            "faq": "Frequently Asked Questions yahan uplabdh hain.",
+            "feedback": "Aapka feedback hume behtar banata.",
+            "write essay": "Main kisi bhi topic par essay likh sakta hoon.",
+            "write poem": "Main kavita aur shayari likh sakta hoon.",
+            "write code": "Main HTML, CSS, JavaScript aur anya languages mein code likh sakta hoon.",
+            "explain code": "Main code ki line-by-line explanation de sakta hoon.",
+            "are you smart": "Main jaankari dene aur madad karne ke liye trained hoon.",
+            "are you human": "Nahi, main ek AI chatbot hoon.",
+            "do you sleep": "Nahi, AI ko neend ki zarurat nahi hoti.",
+            "do you eat": "Nahi, main khana nahi khaata.",
+            "i need help": "Main madad ke liye yahan hoon. Kripya apni samasya batayein.",
+            "contact support": "Support team se sampark karne ke liye Contact section dekhein.",
+            "report issue": "Kripya issue ka poora vivaran dein.",
+            "who made this chatbot": "Yeh chatbot Developer Name dwara banaya gaya hai.",
+            "developer skills": "HTML, CSS, JavaScript, Firebase, AI Integration aur Web Development.",
+            "projects": "Developer ne AI websites aur modern web applications banayi hain.",
+            "hire developer": "Contact section mein jaakar developer se sampark kar sakte hain.",
+            "open calculator": "Calculator feature jaldi uplabdh hoga.",
+            "open weather": "Weather feature ke liye internet connection avashyak hai.",
+            "open chat": "Chat session shuru ho chuka hai.",
+            "clear chat": "Chat history clear kar di gayi hai",
+            "hi": "Hi! Main aapki madad karne ke liye tayyar hoon. 😊",
+            "hello": "Hello! Aapka swagat hai. Main aapki kya madad kar sakta hoon?",
+            "hey": "Hey! Kaise ho? Main aapki madad ke liye yahan hoon.",
+            "good morning": "Good Morning! Aapka din shubh ho. ☀️",
+            "good afternoon": "Good Afternoon! Aapko kis cheez mein madad chahiye?",
+            "good evening": "Good Evening! Aaj main aapke liye kya kar sakta hoon?",
+            "good night": "Good Night! Aapka din achha rahe. 🌙",
+            "who are you": "Main ek AI Assistant hoon jo aapke sawaalon ke jawab dene aur madad karne ke liye bana hoon.",
+            "what is your name": "Mera naam AI Assistant hai.",
+            "tell me about yourself": "Main ek intelligent chatbot hoon jo jaankari dene, sawalon ke jawab dene aur madad karne ke liye bana hoon.",
+            "help": "Main aapki kai tarah se madad kar sakta hoon. Apna sawaal poochiye.",
+            "support": "Main support ke liye uplabdh hoon. Kripya apni samasya batayein.",
+            "guide me": "Zarur! Main aapko step-by-step guide karunga.",
+            "what is the time": "Kripya apne device ka current time check karein.",
+            "today's date": "Aaj ki tareekh aap apne device par dekh sakte hain.",
+            "how are you": "Main bilkul theek hoon. Aap kaise hain?",
+            "thank you": "Aapka swagat hai! 😊",
+            "thanks": "Khushi hui madad karke.",
+            "bye": "Alvida! Phir milenge. 👋",
+            "see you later": "Zarur! Jaldi phir baat hogi.",
+            "developer": "Yeh chatbot Developer Name dwara banaya gaya hai.",
+            "creator": "Mere creator ne mujhe logon ki madad ke liye banaya hai.",
+            "owner": "Mera owner aur developer ek talented programmer hai. 🚀",
+            "tell me a joke": "Computer doctor ke paas kyu gaya? Kyunki usme virus aa gaya tha! 😄",
+            "motivate me": "Mehnat karte raho, safalta zarur milegi. 💪",
+            "quote": "\"Sapne wo nahi jo hum sote waqt dekhte hain, sapne wo hain jo hume sone nahi dete.\"",
+            "contact": "Contact ke liye admin se sampark karein.",
+            "about": "Yeh AI chatbot users ki madad ke liye design kiya gaya hai.",
+            "features": "Main sawalon ke jawab de sakta hoon, guide kar sakta hoon aur jaankari de sakta hoon.",
+            "can you code": "Haan, main coding mein madad kar sakta hoon.",
+            "can you write html": "Haan, main HTML, CSS aur JavaScript code likh sakta hoon.",
+            "can you solve math": "Haan, main ganit ke sawalon ko hal karne mein madad kar sakta hoon.",
+            "can you explain science": "Haan, main vigyan ke concepts ko samjha sakta hoon."
+        };
+
+        const ROUTINE_ARRAY_STORE = {
+            1: [ { t: "9:15 – 10:00", s: "MASS" }, { t: "10:00 – 10:45", s: "POSC" }, { t: "10:55 – 11:40", s: "ENGL" }, { t: "11:40 – 12:35", s: "ECON / HIST" }, { t: "1:00 – 1:45", s: "EDUC" }, { t: "1:45 – 2:30", s: "ADAS" } ],
+            2: [ { t: "9:15 – 10:00", s: "POSC" }, { t: "10:00 – 10:45", s: "ENGL" }, { t: "10:55 – 11:40", s: "RT / IT / ADAS" }, { t: "11:40 – 12:35", s: "ECON / HIST" }, { t: "1:00 – 1:45", s: "EDUC" }, { t: "1:45 – 2:30", s: "MASS" } ],
+            3: [ { t: "9:15 – 10:00", s: "ENGL" }, { t: "10:00 – 10:45", s: "MASS" }, { t: "10:55 – 11:40", s: "ECON / HIST" }, { t: "11:40 – 12:35", s: "POSC" }, { t: "1:00 – 1:45", s: "EDUC" }, { t: "1:45 – 2:30", s: "ADAS" } ],
+            4: [ { t: "9:15 – 10:00", s: "ECON / HIST" }, { t: "10:00 – 10:45", s: "POSC" }, { t: "10:55 – 11:40", s: "RT / IT / ADAS" }, { t: "11:40 – 12:35", s: "MASS" }, { t: "1:00 – 1:45", s: "EDUC" }, { t: "1:45 – 2:30", s: "ENGL" } ],
+            5: [ { t: "9:15 – 10:00", s: "ENGL" }, { t: "10:00 – 10:45", s: "MASS" }, { t: "10:55 – 11:40", s: "POSC" }, { t: "11:40 – 12:35", s: "ECON / HIST" }, { t: "1:00 – 1:45", s: "EDUC" }, { t: "1:45 – 2:30", s: "HIST" }, { t: "2:30 – 3:15", s: "RT / IT" } ],
+            6: [ { t: "9:15 – 10:00", s: "POSC" }, { t: "10:00 – 10:45", s: "ENGL" }, { t: "10:55 – 11:40", s: "RT / IT / ADAS" }, { t: "11:40 – 12:35", s: "MASS" }, { t: "1:00 – 1:45", s: "EDUC" }, { t: "1:45 – 2:30", s: "HIST" } ]
+        };
+
+        const SUBJECT_VAULT_MAP = {
+            "MASS": "MASS COMMUNICATION - Class Room Block A2",
+            "POSC": "POLITICAL SCIENCE - Main Seminar Hall",
+            "ENGL": "GENERAL ENGLISH - Room No. 104",
+            "ECON": "ECONOMICS - Dept. Building Area",
+            "HIST": "HISTORY MODULES - Wing C Room 12",
+            "EDUC": "EDUCATION LABS - Annex Ground Floor",
+            "ADAS": "ADVANCED DIGITAL APPLICATION SYSTEM - IT Core",
+            "RT": "RESEARCH TECHNIQUES - Lab Unit 3",
+            "IT": "INFORMATION TECHNOLOGY HUB - System Terminal Room"
+        };
+
+        class BackgroundAudioController {
+            constructor() { this.track = document.getElementById('bgMusicTrack'); this.btn = document.getElementById('audioStateBtn'); this.init = false; }
+            start() { if(this.init) return; this.track.volume = 0.5; this.init = true; }
+            toggleState() { this.start(); if(this.track.paused) { this.track.play(); this.btn.innerText = "||"; } else { this.track.pause(); this.btn.innerText = "▶"; } }
+            adjustVolume(v) { this.start(); this.track.volume = v; }
+        }
+        const bgAudioEngine = new BackgroundAudioController();
+
+        class ModalInterfaceEngine {
+            open(id, idx = null) { bgAudioEngine.start(); const m = document.getElementById(id); m.style.display = 'flex'; if(idx !== null && id === 'coreDashboard') { m.getElementsByClassName('tab-nav-button')[idx].click(); } }
+            close(id) { document.getElementById(id).style.display = 'none'; }
+            closeAll() { document.querySelectorAll('.system-modal-overlay').forEach(m => m.style.display = 'none'); }
+            handleBackgroundOverlayClick(e) { if(e.target.classList.contains('system-modal-overlay')) e.target.style.display = 'none'; }
+            switchTab(e, pid) {
+                const box = e.target.closest('.modal-window-frame');
+                box.querySelectorAll('.tab-nav-button').forEach(b => b.classList.remove('active'));
+                box.querySelectorAll('.modal-tab-panel').forEach(p => p.classList.remove('active'));
+                e.target.classList.add('active'); document.getElementById(pid).classList.add('active');
+            }
+        }
+        const modalEngine = new ModalInterfaceEngine();
+
+        class IDCardCanvasExporter {
+            executeDownload() {
+                const target = document.getElementById('exportableCardObject');
+                html2canvas(target, { scale: 2, useCORS: true, backgroundColor: null }).then(canvas => {
+                    const a = document.createElement('a'); a.download = 'BISWAJITRABHA_CYBER_ID.png'; a.href = canvas.toDataURL('image/png'); a.click();
+                });
+            }
+        }
+        const idCardExporter = new IDCardCanvasExporter();
+
+        class GeminiAiTerminalEngine {
+            constructor() {
+                this.container = document.getElementById('geminiLogsContainer');
+                this.field = document.getElementById('geminiTextInField');
+                this.sidebar = document.getElementById('commandsMapAnchorList');
+            }
+            initSidebarMenu() {
+                this.sidebar.innerHTML = Object.keys(DICTIONARY_COMMANDS_MATRIX).map(cmd => `
+                    <button class="command-badge-item" onclick="geminiEngine.triggerCommand('${cmd}')">${cmd}</button>
+                `).join('');
+            }
+            triggerCommand(text) {
+                this.field.value = text;
+                this.processUserSubmit();
+            }
+            processUserSubmit() {
+                const val = this.field.value.trim(); if(!val) return;
+                this.addBubble(val, 'user-side');
+                this.field.value = '';
+                
+                setTimeout(() => {
+                    const normalized = val.toLowerCase().replace(/[?.,!]/g, '').trim();
+                    let finalReply = "";
+                    if(DICTIONARY_COMMANDS_MATRIX[normalized] !== undefined) {
+                        finalReply = `🤖 <b>AI:</b> ${DICTIONARY_COMMANDS_MATRIX[normalized]}`;
+                    } else {
+                        finalReply = "✨ <b> Biswa AI:</b> Ye Biswa Ai Abhi Fully Complete Nahi Hua Hai Or Ye Tayar Nahi Hai Apke Sawal ka jawab dene ke liye Me Yani Biswajit Aplogo Ke Samne Jald Hi Ye Biswa Ai Complete Karnege or ap abhi sirf kuch puch sakte hai isse";
+                    }
+                    this.addBubble(finalReply, 'ai-side');
+                }, 400);
+            }
+            addBubble(html, side) {
+                const node = document.createElement('div');
+                node.className = `gemini-bubble ${side}`;
+                if(side === 'ai-side') {
+                    node.innerHTML = `<div class="gemini-avatar">✦</div><div>${html}</div>`;
+                } else {
+                    node.innerHTML = html;
+                }
+                this.container.appendChild(node);
+                this.container.scrollTop = this.container.scrollHeight;
+            }
+        }
+        const geminiEngine = new GeminiAiTerminalEngine();
+
+        class StudentPackUtilities {
+            constructor() { 
+                this.grades = []; 
+                this.pomoTimer = null; 
+                this.pomoSeconds = 1500; 
+                this.pomoRunning = false;
+            }
+            parseNotes() {
+                const val = document.getElementById('noteInput').value.trim(); if(!val) return;
+                document.getElementById('noteOutputBox').innerHTML = `<b>⚡ Quick Pointers:</b><br>• Core concept isolated.<br>• Mapped Context brief summaries: "<i>${val.substring(0,40)}...</i>"`;
+                document.getElementById('noteInput').value = '';
+            }
+            calculatePointers() {
+                const num = parseFloat(document.getElementById('sgpaInput').value); if(isNaN(num) || num < 0 || num > 10) return;
+                this.grades.push(num);
+                const mean = this.grades.reduce((x, y) => x + y, 0) / this.grades.length;
+                document.getElementById('cgpaMetric').innerText = mean.toFixed(2);
+                document.getElementById('sgpaInput').value = '';
+            }
+            togglePomodoro() {
+                const btn = document.getElementById('pomoBtnNode');
+                const lbl = document.getElementById('pomoDisplayClock');
+                if(this.pomoRunning) {
+                    clearInterval(this.pomoTimer); this.pomoRunning = false; btn.innerText = "Resume Session";
+                } else {
+                    this.pomoRunning = true; btn.innerText = "Pause Timer";
+                    this.pomoTimer = setInterval(() => {
+                        if(this.pomoSeconds <= 0) {
+                            clearInterval(this.pomoTimer); alert("Focus round over! Take a short break.");
+                            this.pomoSeconds = 1500; this.pomoRunning = false; btn.innerText = "Start Session";
+                        } else {
+                            this.pomoSeconds--;
+                            let mins = Math.floor(this.pomoSeconds / 60); let secs = this.pomoSeconds % 60;
+                            lbl.innerText = `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+                        }
+                    }, 1000);
+                }
+            }
+            lookupSubject(str) {
+                const clean = str.toUpperCase().trim();
+                const out = document.getElementById('subjectSearchOutput');
+                if(!clean) { out.innerText = "Enter code for mapping details..."; return; }
+                if(SUBJECT_VAULT_MAP[clean]) { out.innerHTML = `✅ Map Located:<br><span style="color:#fff;">${SUBJECT_VAULT_MAP[clean]}</span>`; }
+                else { out.innerText = "❌ Subject code mismatch in local matrix registry."; }
+            }
+            addAssignmentTrackerNode() {
+                const info = document.getElementById('taskDesc').value.trim();
+                const d = document.getElementById('taskDate').value; if(!info || !d) return;
+                const node = document.createElement('div'); node.className = 'utility-item-node';
+                node.innerHTML = `<span>📚 ${info}</span> <b style="color:var(--primary-glow);">${d}</b>`;
+                document.getElementById('assignmentListNodeWrapper').appendChild(node);
+                document.getElementById('taskDesc').value = ''; document.getElementById('taskDate').value = '';
+            }
+        }
+        const studentPack = new StudentPackUtilities();
+
+        window.addEventListener('DOMContentLoaded', () => {
+            geminiEngine.initSidebarMenu();
+            const dateNode = document.getElementById('calendarNodeDate');
+            const now = new Date();
+            dateNode.innerText = `${String(now.getDate()).padStart(2,'0')}-${String(now.getMonth()+1).padStart(2,'0')}-${now.getFullYear()}`;
+            
+            const currentHour = now.getHours();
+            const currentMin = now.getMinutes();
+            const currentDayNumber = now.getDay(); 
+            
+            const totalMinutesPassedToday = (currentHour * 60) + currentMin;
+            const saturdayTimeLimit = (15 * 60) + 15; 
+            const regularDayTimeLimit = (14 * 60) + 30; 
+
+            let routineExpired = false;
+            if(currentDayNumber === 0) {
+                routineExpired = true; 
+            } else if(currentDayNumber === 6 && totalMinutesPassedToday > saturdayTimeLimit) {
+                routineExpired = true; 
+            } else if(currentDayNumber !== 6 && currentDayNumber !== 0 && totalMinutesPassedToday > regularDayTimeLimit) {
+                routineExpired = true; 
+            }
+
+            const targetDay = (currentDayNumber === 0) ? 1 : currentDayNumber;
+            const routineData = ROUTINE_ARRAY_STORE[targetDay] || ROUTINE_ARRAY_STORE[1];
+            const outputBox = document.getElementById('dynamicTimetableEngineOutput');
+
+            if(routineExpired) {
+                document.getElementById('routinePulseStatusField').innerHTML = `<span style="color:#ef4444;">● Closed Protocol</span>`;
+                outputBox.innerHTML = `
+                    <div style="background: rgba(239, 68, 68, 0.1); border: 1px dashed #ef4444; padding: 1.5rem; border-radius: 8px; text-align: center; color: #fff; font-weight: bold;">
+                        ⚠️ ajka routine khatam today is new routine coming
+                    </div>`;
+            } else {
+                outputBox.innerHTML = routineData.map(slot => `
+                    <div class="slot-pill-node"><span style="color:var(--cyber-cyan); font-weight:700;">${slot.t}</span><span><b>${slot.s}</b></span></div>
+                `).join('');
+            }
+
+            setInterval(() => {
+                const field = document.getElementById('visitorLiveField');
+                const calculatedValue = Math.max(22, parseInt(field.innerText) + (Math.random() > 0.48 ? 1 : -1));
+                field.innerText = String(calculatedValue).padStart(4, '0');
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
